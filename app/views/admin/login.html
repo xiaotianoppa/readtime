@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/public/css/login.css" />
+</head>
+<body>
+
+<div id="login">
+
+    <h1></h1>
+
+    <form action="/admin/login" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" >
+        <input type="hidden" name="authenticityToken" isAdmin="isAdmin">
+
+
+        <p id="username-field">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" value="" />
+        </p>
+        <p id="password-field">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" value="" />
+        </p>
+        <p id="remember-field">
+            <input type="checkbox" name="remember" id="remember" value="true"  />
+            <label for="remember">Remember me</label>
+        </p>
+        <p id="signin-field">
+            <input type="submit" id="signin" value="Sign in" />
+        </p>
+
+    </form></div>
+</body>
+</html>

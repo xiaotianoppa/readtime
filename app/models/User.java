@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.persistence.Entity;
 
+
 import org.apache.commons.lang3.StringUtils;
 
 import play.data.validation.Email;
@@ -19,9 +20,36 @@ public class User extends Model {
     public String password;
     @Required
     public String username;
+    
+    public static class LoginUserRole {
+        public static final int Normal = 1;
+        public static final int QTMember = 2;//会员
+        public static final int Admin = 4;//管理员
+        
+        public static final int SuperAdmin = 8;//超级管理员
+    }
+    
+    public int userRole;
+    
     public boolean isAdmin;
        
     public String headerImage;
+    
+    public boolean isSuperAdminRole() {
+        return LoginUserRole.SuperAdmin ==  userRole;
+    }
+
+    public boolean isAdminRole() {
+        return LoginUserRole.Admin ==  userRole;
+    }
+
+    public boolean isMemberRole() {
+        return LoginUserRole.QTMember ==  userRole;
+    }
+    
+    public boolean isNormalrRole() {
+        return LoginUserRole.Normal ==  userRole;
+    }
 
     public User(String email, String password, String username) {
         this.email = email;

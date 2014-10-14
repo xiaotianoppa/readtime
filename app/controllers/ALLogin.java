@@ -16,15 +16,31 @@ import utils.PlayUtil;
 
 public class ALLogin extends ControllerUtils {
 
-    public static void index(String requestUrl){
-        render("/allogin/login.html",  requestUrl);
+    public static void index(String redirectURL){
+        
+        if (StringUtils.isEmpty(redirectURL)) {
+            redirectURL = "/Application/index";
+        }
+        
+        render("/allogin/login.html",  redirectURL);
     }
     
-    public static void register(String url){
-        render("/allogin/register.html",  url);
+    public static void admin(String redirectURL){
+        if (StringUtils.isEmpty(redirectURL)) {
+            redirectURL = "/Admin/index";
+        }
+        render("/admin/login.html",  redirectURL);
     }
     
-    public static void doLogin(String username, String password){
+    public static void register(String redirectURL){
+        
+        if (StringUtils.isEmpty(redirectURL)) {
+            redirectURL = "/Application/index";
+        }
+        render("/allogin/register.html",  redirectURL);
+    }
+    
+    public static void doLogin(String username, String password, String isAdmin){
        // checkCaptcha(code, randomID); 
         
         String ip = ControllerUtils.getRemoteIp();        
@@ -34,6 +50,7 @@ public class ALLogin extends ControllerUtils {
         renderALResult(loginRes);
         
     }
+    
     /*
     private static void checkCaptcha( String code, String randomID){
         if(!StringUtils.isBlank(code) && !StringUtils.isBlank(randomID) && code.equalsIgnoreCase(Cache.get(randomID).toString())){

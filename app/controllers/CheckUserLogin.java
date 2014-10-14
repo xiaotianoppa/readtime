@@ -27,30 +27,35 @@ public class CheckUserLogin extends BaseController {
     
     private final static String USER_ARG_KEY = "_user_";
    
-   @Before
-    static void check(){
-        checkIsLogin();
+    @Before(only = {"UserAdmin.index"})
+    static void checkForNormal(){
+        checkIsLogin(false);
     }
+   
+   @Before(only = {"Admin.index"})
+   static void checkForAdmin(){
+       checkIsLogin(true);
+   }
     
-    static void checkIsLogin() {
+    static void checkIsLogin( boolean isAdmin) {
 
          User user = (User) request.args.get(USER_ARG_KEY);
         
         if (user != null) {
-            ControllerUtils.renderLoginFail();
+           return;
         }
          
         String sid = ALLogin.getSidFromCookie();
         
         if (StringUtils.isEmpty(sid)) {
-            ControllerUtils.renderLoginFail();
+            ControllerUtils.renderLoginFail( isAdmin, "您尚未登录，请先登录！");
         }
         
         String ip = ControllerUtils.getRemoteIp();
         user = LoginUserGetAction.fetchUserBySid(sid, ip);
         
         if (user == null) {
-           ControllerUtils.renderLoginFail();     
+            ControllerUtils.renderLoginFail( isAdmin, "您的登录已过期，请先登录！");
         }
         
         ALLogin.putSidToCookie(sid);     
@@ -58,14 +63,55 @@ public class CheckUserLogin extends BaseController {
     
     }
  
-    static User connect() {
+    static User checkLogin(){
+        User user = (User) request.args.get(USER_ARG_KEY);     
+        return user;
+    }
+    
+    static User login() {
         
         User user = (User) request.args.get(USER_ARG_KEY);
         
         if (user == null) {
-            return null;
+            ControllerUtils.renderLoginFail( false, "找不到用户，您尚未登录，请先登录！");
         }
         
         return user;
-    }     
+    }  
+    
+    static User connect(){
+        User user = (User) request.args.get(USER_ARG_KEY);
+        
+        if (user == null) {
+            ControllerUtils.renderLoginFail( true, "找不到用户，您尚未登录，请先登录！");
+        }
+        
+        return user;
+    }
+    
+    static boolean checkHasRight(){
+        return (isSuperAdminRole() ||  isAdminRole());
+    }
+    
+    static boolean isSuperAdminRole() {
+        User user = connect();
+        return user.isSuperAdminRole();
+    }
+    
+    static boolean isAdminRole() {
+        User user = connect();
+        return user.isAdminRole();
+    }
+    
+    static boolean isMemberRole() {
+        User user = connect();
+        return user.isMemberRole();
+    }
+    
+    static boolean isNormalrRole() {
+        User user = connect();
+        return user.isNormalrRole();
+    }
+    
+
 }

@@ -21,9 +21,20 @@ public class ControllerUtils extends BaseController {
 
     public static final String TAG = "ControllerUtils";
  
-    static void renderLoginFail() {
+    static void renderLoginFail(boolean isAdmin, String message) {
 
-        redirectToLogin(request.url);
+        if (isAdmin == false) {
+            redirectToLogin(request.url);
+        }else{
+            toAdminLogin(request.url);
+        }
+        
+        ALResult res = new ALResult(false, message, null);
+        
+        res.setNeedWarnLogin(true);
+        
+        renderJSON(JsonUtil.getJson(res));
+       
         
     }
    
@@ -31,7 +42,18 @@ public class ControllerUtils extends BaseController {
         ALLogin.index(redirectURL);
     }
     
-  
+    static void toAdminLogin(String redirectURL) {
+        ALLogin.admin(redirectURL);
+    }
+    
+    static void redirectToQTNoAuth() {
+        toAdminLogin(request.url);
+    }
+    
+    static void renderAjaxQTNoAuth() {
+        renderError("您当前权限不够，不能进行此操作！");
+    }
+     
     static void renderError(String message) {
         ALResult res = new ALResult(false, message, null);
         
