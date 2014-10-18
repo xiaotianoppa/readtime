@@ -3,7 +3,7 @@ package controllers;
 import models.User;
 import play.mvc.With;
 
-
-public class UserAdmin {
+@CRUD.For(User.class)
+public class UserAdmin extends CRUD {
     
 }

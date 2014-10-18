@@ -29,8 +29,10 @@ public class User extends Model {
         public static final int SuperAdmin = 8;//超级管理员
     }
     
+    @Required
     public int userRole;
     
+    @Required
     public boolean isAdmin;
        
     public String headerImage;
