@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Administration</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    #{get 'moreStyles' /}
+    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/admin.css'}" />
+
+<script src="@{'/public/js/jquery-1.6.4.min.js'}"></script>
+
+</head>
+<body id="admin">
+<div id="header">
+    <div id="logo">
+        readtime. <span>administration</span>
+    </div>
+    <ul id="tools">
+        <li>
+            <a href="/ALLogin/doLogout">登录</a>
+        </li>
+        <li>
+            <a href="/ALLogin/doLogout">退出</a>
+        </li>
+    </ul>
+</div>
+<div id="main">
+    <ul id="adminMenu">
+        <li class="${request.controller == 'Admin' ? 'selected' : ''}">
+            <a href="@{CRUD.index()}">My posts</a>
+        </li>
+
+        <li class="${request.controller == 'Users' ? 'selected' : ''}">
+            <a href="@{UserAdmin.list()}">Users</a>
+        </li>
+    </ul>
+    #{doLayout /}
+</div>
+<p id="footer">
+
+</p>
+</body>
+</html>

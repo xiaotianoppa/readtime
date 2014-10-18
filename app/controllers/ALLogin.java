@@ -14,7 +14,7 @@ import play.libs.Codec;
 import result.ALResult;
 import utils.PlayUtil;
 
-public class ALLogin extends ControllerUtils {
+public class ALLogin extends CheckUserLogin {
 
     public static void index(String redirectURL){
         
@@ -40,34 +40,37 @@ public class ALLogin extends ControllerUtils {
         render("/allogin/register.html",  redirectURL);
     }
     
-    public static void doLogin(String username, String password, String isAdmin){
-       // checkCaptcha(code, randomID); 
-        
+    public static void doLogin(String username, String password){
         String ip = ControllerUtils.getRemoteIp();        
         ALResult<ALSession> loginRes = UserLoginRegAction.userLogin(username, password, ip);
         
         trySetCookie(loginRes);  
-        renderALResult(loginRes);
-        
+        ControllerUtils.renderALResult(loginRes);        
     }
     
-    /*
-    private static void checkCaptcha( String code, String randomID){
-        if(!StringUtils.isBlank(code) && !StringUtils.isBlank(randomID) && code.equalsIgnoreCase(Cache.get(randomID).toString())){
-            Cache.delete(randomID);          
-        }else{
-            renderError("验证码错误！");  
+    public static void doAdminLogin(String username, String password){
+        String ip = ControllerUtils.getRemoteIp();        
+        ALResult<ALSession> loginRes = UserLoginRegAction.userLogin(username, password, ip);
+        
+        trySetCookie(loginRes);  
+        if(loginRes.isOk==false){
+            ControllerUtils.renderError(loginRes.msg);
         }
+        
+        if(checkHasRight()){
+            ControllerUtils.renderSuccess("");
+        }else{
+            ControllerUtils.renderAjaxQTNoAuth();
+        }      
     }
-    */
+    
   public static void doRegister(String username, String password,String email){
-     // checkCaptcha(code, randomID); 
-      
+   
       String ip = ControllerUtils.getRemoteIp();
       ALResult<ALSession> registerRes = UserLoginRegAction.userRegister(username, password, email, ip);
       
       trySetCookie(registerRes);     
-      renderALResult(registerRes);
+      ControllerUtils.renderALResult(registerRes);
         
     }
 

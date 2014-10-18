@@ -71,11 +71,11 @@ public class User extends Model {
     } 
     
     public static User login(String username ,String password){
-        return find("byusernameAndPassword",username,password).first();
+        return find("byUsernameAndPassword",username,password).first();
     }
     
     public static User findByName(String username){
-        return find("byusername",username).first();
+        return find("byUsername",username).first();
     }
     
     public  static User saveUser(String email, String password, String username){

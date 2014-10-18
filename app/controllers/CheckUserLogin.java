@@ -32,7 +32,7 @@ public class CheckUserLogin extends BaseController {
         checkIsLogin(false);
     }
    
-   //@Before(only = {"Admin.index"})
+   @Before(only = {"Admin.index","UserAdmin.list"})
    static void checkForAdmin(){
        checkIsLogin(true);
    }
