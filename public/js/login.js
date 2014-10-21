@@ -46,7 +46,9 @@ var tologin =  function(container){
                 return;
             }
 
-            location.href = "/admin/index"
+            var href = $("#redirectURL").attr("url");
+
+            location.href = href;
         }
     });
 

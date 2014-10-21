@@ -13,6 +13,8 @@ ul{
 }
 #header #logo{
     float: left;
+    height: 100%;
+    vertical-align: middle;
 }
 #header #tools{
     float: right;

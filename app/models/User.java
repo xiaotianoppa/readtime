@@ -102,4 +102,8 @@ public class User extends Model {
     public static User findByUserId(Long id){
         return find("byId",id).first();
     }
+    
+    public String toString(){
+        return "username: "+username+" email: "+email;
+    }
 }

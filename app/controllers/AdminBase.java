@@ -15,8 +15,10 @@ public class AdminBase extends CRUD{
         log.info("Request For " + request.url + ":" + request.action + " Starts, ip: " + ControllerUtils.getRemoteIp());
         request.args.put("_ts", System.currentTimeMillis());
         
+        CheckUserLogin.checkForAdmin();
+        
         if(CheckUserLogin.checkHasRight()){
-            
+          
         }else{
             ControllerUtils.redirectToQTNoAuth();
         }

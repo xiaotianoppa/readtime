@@ -15,7 +15,7 @@ public class AllUser extends CheckUserLogin {
         if(user==null){
             ControllerUtils.renderError("尚未登录"); 
         }
-        
+        log.info(user.toString());
         ControllerUtils.renderResultJson(user);
         
     }

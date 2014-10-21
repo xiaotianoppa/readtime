@@ -32,7 +32,7 @@ public class CheckUserLogin extends BaseController {
         checkIsLogin(false);
     }
    
-   @Before(only = {"Admin.index","UserAdmin.list"})
+   @Before(only = {"Admin.index"})
    static void checkForAdmin(){
        checkIsLogin(true);
    }
@@ -104,12 +104,12 @@ public class CheckUserLogin extends BaseController {
     }
     
     static boolean isMemberRole() {
-        User user = connect();
+        User user = login();
         return user.isMemberRole();
     }
     
     static boolean isNormalrRole() {
-        User user = connect();
+        User user = login();
         return user.isNormalrRole();
     }
     
