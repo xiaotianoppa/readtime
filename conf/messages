@@ -1,9 +1,12 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+
+#models/user 用户CRUD
 email=邮箱
 password=密码
 username=用户名
 userRole=用户角色
 isAdmin=管理员
 headerImage=头像地址
+

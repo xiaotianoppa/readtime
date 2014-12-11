@@ -11,8 +11,11 @@ import play.data.validation.Email;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
-@Entity
+@Entity(name = User.TABLE_NAME)
 public class User extends Model {
+    
+    public static final String TABLE_NAME = "user";
+    
     @Email
     @Required
     public String email;

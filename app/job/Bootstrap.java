@@ -10,7 +10,7 @@ import play.*;
 public class Bootstrap extends Job{
 
     public void doJob(){
-        //check if the data is empty
+
       
     }
 }
